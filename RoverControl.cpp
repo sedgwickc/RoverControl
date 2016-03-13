@@ -17,22 +17,27 @@
 #include <inttypes.h>
 #include "../RoverACH/RoverACH.hpp"
 
-//using namespace rover;
+using namespace rover;
 using namespace std;
 
 int main( int argc, char **argv ) {
 
 	// change to vector
-	//string[] subscribe_channel = { "drive_chan" };
+	//string[] subscribe_channel = { "nav_data" };
 	
 	// for each subscribe_channel, create a new RoverACH object, open the
 	// channel and subscribe to it
-	RoverACH *drive_chan = new RoverACH();
+	RoverACH *nav_data = new RoverACH();
 
-	drive_chan->opt_pub = 1;
-	drive_chan->opt_chan_name = "drive_chan";
-	drive_chan->fin = stdin;
-	drive_chan->publish();
+	nav_data->opt_pub = 0;
+	nav_data->opt_sub = 1;
+	strncpy(nav_data->opt_chan_name, "nav_data", NAME_SIZE);
+	nav_data->fin = stdin;
+	nav_data->fout = stdout;
+
+	nav_data->subscribe();
+
+	return 0;
 
 	//for each publish channel, create a new RoverACH object, open the channel
 	//and set it to publish
